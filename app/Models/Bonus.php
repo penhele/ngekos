@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bonus extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'boarding_house_id',
         'image',
@@ -13,7 +16,7 @@ class Bonus extends Model
         'description',
     ];
 
-    public function boardingnHouse() 
+    public function boardingHouse() 
     {
         return $this->belongsTo(BoardingHouse::class);
     }

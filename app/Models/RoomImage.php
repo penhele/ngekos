@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Cache\Events\RetrievingKey;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RoomImage extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'room_id',
         'image',

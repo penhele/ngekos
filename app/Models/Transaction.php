@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'code',
         'boarding_house_id',
@@ -21,7 +24,7 @@ class Transaction extends Model
         'transaction_date',
     ];
 
-    public function boardingnHouse() 
+    public function boardingHouse() 
     {
         return $this->belongsTo(BoardingHouse::class);
     }
