@@ -8,9 +8,9 @@ interface BoardingHouseRepositoryInterface
 
     public function getPopularBoardingHouses($limit = 5);
 
-    public function getBoardingHousesByCitySlug($slug);
+    public function getBoardingHouseByCitySlug($slug);
 
-    public function getBoardingHousesByCategorySlug($slug);
+    public function getBoardingHouseByCategorySlug($slug);
 
-    public function getBoardingHousesBySlug($slug);
+    public function getBoardingHouseBySlug($slug);
 }
