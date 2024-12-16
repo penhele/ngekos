@@ -16,7 +16,7 @@ class Room extends Model
         'is_available',
     ];
 
-    public function boardingnHouse() 
+    public function boardingHouse() 
     {
         return $this->belongsTo(BoardingHouse::class);
     }
