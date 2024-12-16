@@ -36,7 +36,7 @@ class BoardingHouseResource extends Resource
                                     ->required()
                                     ->debounce(500)
                                     ->reactive()
-                                    ->afterStateUpdated(function($state, callable $set) {
+                                    ->afterStateUpdated(function ($state, callable $set) {
                                         $set('slug', Str::slug($state));
                                     }),
                                 Forms\Components\TextInput::make('slug')
@@ -59,6 +59,7 @@ class BoardingHouseResource extends Resource
                         Forms\Components\Tabs\Tab::make('Bonus Ngekos')
                             ->schema([
                                 Forms\Components\Repeater::make('bonuses')
+                                    ->relationship('bonuses')
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->image()
@@ -69,13 +70,38 @@ class BoardingHouseResource extends Resource
                                         Forms\Components\TextInput::make('description')
                                             ->required(),
                                     ])
-                                    ->columns(2)
-
 
                             ]),
-                        Forms\Components\Tabs\Tab::make('Tab 3')
+                        Forms\Components\Tabs\Tab::make('Kamar')
                             ->schema([
-                                // ...
+                                Forms\Components\Repeater::make('rooms')
+                                    ->relationship('rooms')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('room_type')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('square_feet')
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\TextInput::make('capacity')
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\TextInput::make('price_per_month')
+                                            ->numeric()
+                                            ->prefix('IDR')
+                                            ->required(),
+                                        Forms\Components\Toggle::make('is_available')
+                                            ->required(),
+                                        Forms\Components\Repeater::make('images')
+                                            ->relationship('images')
+                                            ->schema([
+                                                Forms\Components\FileUpload::make('image')
+                                                    ->image()
+                                                    ->directory('rooms')
+                                                    ->required(),
+                                            ])
+                                    ])
                             ]),
                     ])->columnSpan(2)
 
