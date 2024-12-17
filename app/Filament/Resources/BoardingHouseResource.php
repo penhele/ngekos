@@ -58,6 +58,7 @@ class BoardingHouseResource extends Resource
                                 Forms\Components\Textarea::make('address')
                                     ->required(),
                             ]),
+
                         Forms\Components\Tabs\Tab::make('Bonus Ngekos')
                             ->schema([
                                 Forms\Components\Repeater::make('bonuses')

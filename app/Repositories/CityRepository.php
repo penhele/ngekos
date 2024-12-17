@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\CategoryRepositoryInterface;
-use App\Models\Category;
+use App\Interfaces\CityRepositoryInterface;
+use App\Models\City;
 
-class CategoryRepository implements CategoryRepositoryInterface 
+class CityRepository implements CityRepositoryInterface 
 {
-    public function getAllCategories()
+    public function getAllCities()
     {
-        return Category::all();
+        return City::all();
     }
 }
