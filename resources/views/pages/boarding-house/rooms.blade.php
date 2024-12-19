@@ -17,7 +17,7 @@
                 <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover" alt="icon">
             </div>
             <div class="flex flex-col gap-3 w-full">
-                <h1 class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">Tumbuh Tentram Berada Rumah Nenek</h1>
+                <h1 class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">{{ $boardingHouse->name }}</h1>
                 <hr class="border-[#F1F2F6]">
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">

@@ -28,11 +28,11 @@ class BookingController extends Controller
     }
 
     public function information($slug) {
-        $transtion = $this->transactionRepository->getTransactionDataFromSession();
+        $transaction = $this->transactionRepository->getTransactionDataFromSession();
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySlug($slug);
-        $room = $this->boardingHouseRepository->getBoardingHouseRoomBySlug($transtion['room_id']);
+        $room = $this->boardingHouseRepository->getBoardingHouseRoomBySlug($transaction['room_id']);
 
-        return view('pages.booking.information', compact('transtion', 'boardingHouse', 'room'));
+        return view('pages.booking.information', compact('transaction', 'boardingHouse', 'room'));
     }
 
     public function saveInformation(CustomerInformationStoreRequest $request, $slug)
@@ -40,7 +40,16 @@ class BookingController extends Controller
         $data = $request->validated();
         $this->transactionRepository->saveTransactionToSession($data);
 
-        dd($this->transactionRepository->getTransactionDataFromSession());
+        return redirect()->route('booking.checkout', $slug);
+    }
+
+    public function checkout($slug)
+    {
+        $transaction = $this->transactionRepository->getTransactionDataFromSession();
+        $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySlug($slug);
+        $room = $this->boardingHouseRepository->getBoardingHouseRoomBySlug($transaction['room_id']);
+
+        return view('pages.booking.checkout', compact('transaction', 'boardingHouse', 'room'));
     }
 
     public function check()
