@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerInformationStoreRequest;
 use App\Interfaces\BoardingHouseRepositoryInterface;
 use App\Repositories\TransactionRepository;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class BookingController extends Controller
 {
@@ -31,6 +33,14 @@ class BookingController extends Controller
         $room = $this->boardingHouseRepository->getBoardingHouseRoomBySlug($transtion['room_id']);
 
         return view('pages.booking.information', compact('transtion', 'boardingHouse', 'room'));
+    }
+
+    public function saveInformation(CustomerInformationStoreRequest $request, $slug)
+    {
+        $data = $request->validated();
+        $this->transactionRepository->saveTransactionToSession($data);
+
+        dd($this->transactionRepository->getTransactionDataFromSession());
     }
 
     public function check()
