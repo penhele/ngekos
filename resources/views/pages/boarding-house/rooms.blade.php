@@ -12,25 +12,26 @@
         <div class="dummy-btn w-12"></div>
         </div>
         <div id="Header" class="relative flex items-center justify-between gap-2 px-5 mt-[18px]">
-        <div class="flex w-full rounded-[30px] border border-[#F1F2F6] p-4 gap-4 bg-white">
-            <div class="flex w-[120px] h-[132px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover" alt="icon">
-            </div>
-            <div class="flex flex-col gap-3 w-full">
-                <h1 class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">{{ $boardingHouse->name }}</h1>
-                <hr class="border-[#F1F2F6]">
-                <div class="flex items-center gap-[6px]">
-                    <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">Kota {{ $boardingHouse->city->name }}</p>
+            <div class="flex w-full rounded-[30px] border border-[#F1F2F6] p-4 gap-4 bg-white">
+                <div class="flex w-[120px] h-[132px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
+                    <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover" alt="icon">
                 </div>
-                <div class="flex items-center gap-[6px]">
-                    <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">In {{ $boardingHouse->category->name }}</p>
-                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <h1 class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">{{ $boardingHouse->name }}</h1>
+                    <hr class="border-[#F1F2F6]">
+                    <div class="flex items-center gap-[6px]">
+                        <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
+                        <p class="text-sm text-ngekos-grey">Kota {{ $boardingHouse->city->name }}</p>
+                    </div>
+                    <div class="flex items-center gap-[6px]">
+                        <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
+                        <p class="text-sm text-ngekos-grey">In {{ $boardingHouse->category->name }}</p>
+                    </div>
             </div>
         </div>
-        </div>
-        <form action="{{ route('booking', $boardingHouse->slug) }}" class="relative flex flex-col gap-4 mt-5">
+    </div>
+    <form action="{{ route('booking', $boardingHouse->slug) }}" class="relative flex flex-col gap-4 mt-5">
+        <input type="hidden" name="boarding_house_id" value="{{ $boardingHouse->id }}">
         <h2 class="font-bold px-5">Available Rooms</h2>
 
         @foreach ($boardingHouse->rooms as $room)

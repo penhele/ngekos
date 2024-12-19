@@ -117,159 +117,160 @@
         </div>
     </div>
     </div>
-    <form action="success-booking.html" class="relative flex flex-col gap-6 mt-5 pt-5">
-    <div id="PaymentOptions" class="flex flex-col rounded-[30px] border border-[#F1F2F6] p-5 gap-4 mx-5">
-        <div id="TabButton-Container"
-            class="flex items-center justify-between border-b border-[#F1F2F6] gap-[18px]">
-            <label class="tab-link group relative flex flex-col justify-between gap-4"
-                data-target-tab="#DownPayment-Tab">
-                <input type="radio" name="payment_method" value="down_payment"
-                    class="absolute -z-10 top-1/2 left-1/2 opacity-0" checked>
-                <div class="flex items-center gap-3 mx-auto">
-                    <div class="relative w-6 h-6">
-                        <img src="{{ asset('assets/images/icons/status-orange.svg') }}"
-                            class="absolute w-6 h-6 flex shrink-0 opacity-0 group-has-[:checked]:opacity-100 transition-all duration-300"
-                            alt="icon">
-                        <img src="{{ asset('assets/images/icons/status.svg') }}"
-                            class="absolute w-6 h-6 flex shrink-0 opacity-100 group-has-[:checked]:opacity-0 transition-all duration-300"
-                            alt="icon">
+    <form action="{{ route('booking.payment', $boardingHouse->slug) }}" class="relative flex flex-col gap-6 mt-5 pt-5" method="POST">
+        @csrf
+        <div id="PaymentOptions" class="flex flex-col rounded-[30px] border border-[#F1F2F6] p-5 gap-4 mx-5">
+            <div id="TabButton-Container"
+                class="flex items-center justify-between border-b border-[#F1F2F6] gap-[18px]">
+                <label class="tab-link group relative flex flex-col justify-between gap-4"
+                    data-target-tab="#DownPayment-Tab">
+                    <input type="radio" name="payment_method" value="down_payment"
+                        class="absolute -z-10 top-1/2 left-1/2 opacity-0" checked>
+                    <div class="flex items-center gap-3 mx-auto">
+                        <div class="relative w-6 h-6">
+                            <img src="{{ asset('assets/images/icons/status-orange.svg') }}"
+                                class="absolute w-6 h-6 flex shrink-0 opacity-0 group-has-[:checked]:opacity-100 transition-all duration-300"
+                                alt="icon">
+                            <img src="{{ asset('assets/images/icons/status.svg') }}"
+                                class="absolute w-6 h-6 flex shrink-0 opacity-100 group-has-[:checked]:opacity-0 transition-all duration-300"
+                                alt="icon">
+                        </div>
+                        <p class="font-semibold">Down Payment</p>
                     </div>
-                    <p class="font-semibold">Down Payment</p>
-                </div>
-                <div
-                    class="w-0 mx-auto group-has-[:checked]:ring-1 group-has-[:checked]:ring-[#91BF77] group-has-[:checked]:w-[90%] transition-all duration-300">
-                </div>
-            </label>
-            <div class="flex h-6 w-[1px] border border-[#F1F2F6] mb-auto"></div>
-            <label class="tab-link group relative flex flex-col justify-between gap-4"
-                data-target-tab="#FullPayment-Tab">
-                <input type="radio" name="payment_method" value="full_payment"
-                    class="absolute -z-10 top-1/2 left-1/2 opacity-0">
-                <div class="flex items-center gap-3 mx-auto">
-                    <div class="relative w-6 h-6">
-                        <img src="{{ asset('assets/images/icons/diamonds-orange.svg') }}"
-                            class="absolute w-6 h-6 flex shrink-0 opacity-0 group-has-[:checked]:opacity-100 transition-all duration-300"
-                            alt="icon">
-                        <img src="{{ asset('assets/images/icons/diamonds.svg') }}"
-                            class="absolute w-6 h-6 flex shrink-0 group-has-[:checked]:opacity-0 transition-all duration-300"
-                            alt="icon">
+                    <div
+                        class="w-0 mx-auto group-has-[:checked]:ring-1 group-has-[:checked]:ring-[#91BF77] group-has-[:checked]:w-[90%] transition-all duration-300">
                     </div>
-                    <p class="font-semibold">Pay in Full</p>
-                </div>
-                <div
-                    class="w-0 mx-auto group-has-[:checked]:ring-1 group-has-[:checked]:ring-[#91BF77] group-has-[:checked]:w-[90%] transition-all duration-300">
-                </div>
-            </label>
-        </div>
-        <div id="TabContent-Container">
-            @php
-                $subtotal = $room->price_per_month * $transaction['duration'];
-                $tax = $subtotal * 0.11;
-                $insurance = $subtotal * 0.01;
-                $total = $subtotal + $tax + $insurance;
-                $downPayment = $total * 0.3;
-            @endphp
-            <div id="DownPayment-Tab" class="tab-content flex flex-col gap-4">
-                <p class="text-sm text-ngekos-grey">Anda perlu melunasi pembayaran secara cash setelah melakukan
-                    survey koskos</p>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/card-tick.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
-                        <p class="text-ngekos-grey">Payment</p>
+                </label>
+                <div class="flex h-6 w-[1px] border border-[#F1F2F6] mb-auto"></div>
+                <label class="tab-link group relative flex flex-col justify-between gap-4"
+                    data-target-tab="#FullPayment-Tab">
+                    <input type="radio" name="payment_method" value="full_payment"
+                        class="absolute -z-10 top-1/2 left-1/2 opacity-0">
+                    <div class="flex items-center gap-3 mx-auto">
+                        <div class="relative w-6 h-6">
+                            <img src="{{ asset('assets/images/icons/diamonds-orange.svg') }}"
+                                class="absolute w-6 h-6 flex shrink-0 opacity-0 group-has-[:checked]:opacity-100 transition-all duration-300"
+                                alt="icon">
+                            <img src="{{ asset('assets/images/icons/diamonds.svg') }}"
+                                class="absolute w-6 h-6 flex shrink-0 group-has-[:checked]:opacity-0 transition-all duration-300"
+                                alt="icon">
+                        </div>
+                        <p class="font-semibold">Pay in Full</p>
                     </div>
-                    <p class="font-semibold">Down Payment 30%</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-2.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
-                        <p class="text-ngekos-grey">Sub Total</p>
+                    <div
+                        class="w-0 mx-auto group-has-[:checked]:ring-1 group-has-[:checked]:ring-[#91BF77] group-has-[:checked]:w-[90%] transition-all duration-300">
                     </div>
-                    <p class="font-semibold">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-disscount.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">PPN 11%</p>
+                </label>
+            </div>
+            <div id="TabContent-Container">
+                @php
+                    $subtotal = $room->price_per_month * $transaction['duration'];
+                    $tax = $subtotal * 0.11;
+                    $insurance = $subtotal * 0.01;
+                    $total = $subtotal + $tax + $insurance;
+                    $downPayment = $total * 0.3;
+                @endphp
+                <div id="DownPayment-Tab" class="tab-content flex flex-col gap-4">
+                    <p class="text-sm text-ngekos-grey">Anda perlu melunasi pembayaran secara cash setelah melakukan
+                        survey koskos</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/card-tick.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
+                            <p class="text-ngekos-grey">Payment</p>
+                        </div>
+                        <p class="font-semibold">Down Payment 30%</p>
                     </div>
-                    <p class="font-semibold">Rp{{ number_format($tax, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/security-user.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">Insurance</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-2.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
+                            <p class="text-ngekos-grey">Sub Total</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
                     </div>
-                    <p class="font-semibold">Rp{{ number_format($insurance, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-text.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">Grand total (30%)</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-disscount.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">PPN 11%</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($tax, 0, ',', '.') }}</p>
                     </div>
-                    <p id="downPaymentPrice" class="font-semibold">Rp{{ number_format($downPayment, 0, ',', '.') }}</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/security-user.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">Insurance</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($insurance, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-text.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">Grand total (30%)</p>
+                        </div>
+                        <p id="downPaymentPrice" class="font-semibold">Rp{{ number_format($downPayment, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+                <div id="FullPayment-Tab" class="tab-content flex flex-col gap-4 hidden">
+                    <p class="text-sm text-ngekos-grey">Anda tidak perlu membayar biaya tambahan apapun ketika
+                        survey koskos</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/card-tick.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
+                            <p class="text-ngekos-grey">Payment</p>
+                        </div>
+                        <p class="font-semibold">Full Payment 100%</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-2.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
+                            <p class="text-ngekos-grey">Sub Total</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-disscount.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">PPN 11%</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($tax, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/security-user.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">Insurance</p>
+                        </div>
+                        <p class="font-semibold">Rp{{ number_format($insurance, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('assets/images/icons/receipt-text.svg') }}" class="w-6 h-6 flex shrink-0"
+                                alt="icon">
+                            <p class="text-ngekos-grey">Grand total</p>
+                        </div>
+                        <p id="fullPaymentPrice" class="font-semibold">Rp{{ number_format($total, 0, ',', '.') }}</p>
+                    </div>
                 </div>
             </div>
-            <div id="FullPayment-Tab" class="tab-content flex flex-col gap-4 hidden">
-                <p class="text-sm text-ngekos-grey">Anda tidak perlu membayar biaya tambahan apapun ketika
-                    survey koskos</p>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/card-tick.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
-                        <p class="text-ngekos-grey">Payment</p>
+        </div>
+        <div id="BottomNav" class="relative flex w-full h-[132px] shrink-0">
+            <div class="fixed bottom-5 w-full max-w-[640px] px-5 z-10">
+                <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black">
+                    <div class="flex flex-col gap-[2px]">
+                        <p id="price" class="font-bold text-xl leading-[30px] text-white">
+                            <!-- Price mengikuti pilihan yang dipilih dan diambil dari text grand total -->
+                        </p>
+                        <span class="text-sm text-white">Grand Total</span>
                     </div>
-                    <p class="font-semibold">Full Payment 100%</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-2.svg') }}" class="w-6 h-6 flex shrink-0" alt="icon">
-                        <p class="text-ngekos-grey">Sub Total</p>
-                    </div>
-                    <p class="font-semibold">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-disscount.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">PPN 11%</p>
-                    </div>
-                    <p class="font-semibold">Rp{{ number_format($tax, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/security-user.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">Insurance</p>
-                    </div>
-                    <p class="font-semibold">Rp{{ number_format($insurance, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/images/icons/receipt-text.svg') }}" class="w-6 h-6 flex shrink-0"
-                            alt="icon">
-                        <p class="text-ngekos-grey">Grand total</p>
-                    </div>
-                    <p id="fullPaymentPrice" class="font-semibold">Rp{{ number_format($total, 0, ',', '.') }}</p>
+                    <button type="submit"
+                        class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Pay
+                        Now</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="BottomNav" class="relative flex w-full h-[132px] shrink-0">
-        <div class="fixed bottom-5 w-full max-w-[640px] px-5 z-10">
-            <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black">
-                <div class="flex flex-col gap-[2px]">
-                    <p id="price" class="font-bold text-xl leading-[30px] text-white">
-                        <!-- Price mengikuti pilihan yang dipilih dan diambil dari text grand total -->
-                    </p>
-                    <span class="text-sm text-white">Grand Total</span>
-                </div>
-                <button type="submit"
-                    class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Pay
-                    Now</button>
-            </div>
-        </div>
-    </div>
     </form>
 @endsection
 

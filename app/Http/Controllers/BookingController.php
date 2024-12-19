@@ -23,7 +23,7 @@ class BookingController extends Controller
 
     public function booking(Request $request, $slug) 
     {
-        $this->transactionRepository->saveTransactionToSession($request->all());
+        $this->transactionRepository->saveTransactionDataToSession($request->all());
         return redirect()->route('booking.information', $slug);
     }
 
@@ -38,7 +38,7 @@ class BookingController extends Controller
     public function saveInformation(CustomerInformationStoreRequest $request, $slug)
     {
         $data = $request->validated();
-        $this->transactionRepository->saveTransactionToSession($data);
+        $this->transactionRepository->saveTransactionDataToSession($data);
 
         return redirect()->route('booking.checkout', $slug);
     }
@@ -50,6 +50,14 @@ class BookingController extends Controller
         $room = $this->boardingHouseRepository->getBoardingHouseRoomBySlug($transaction['room_id']);
 
         return view('pages.booking.checkout', compact('transaction', 'boardingHouse', 'room'));
+    }
+
+    public function payment(Request $request)
+    {
+        $this->transactionRepository->saveTransactionDataToSession($request->all());
+        $transaction = $this->transactionRepository->saveTransaction($this->transactionRepository->getTransactionDataFromSession());
+
+        dd($transaction);
     }
 
     public function check()
