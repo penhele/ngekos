@@ -5,7 +5,7 @@
     class="absolute top-0 w-full h-[230px] rounded-b-[75px] bg-[linear-gradient(180deg,#F2F9E6_0%,#D2EDE4_100%)]">
     </div>
     <div id="TopNav" class="relative flex items-center justify-between px-5 mt-[60px]">
-    <a href="{{ route('home') }}"
+    <a href="{{ route('kos.rooms', $boardingHouse->slug) }}"
         class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
         <img src="{{ asset('assets/images/icons/arrow-left.svg') }}" class="w-[28px] h-[28px]" alt="icon">
     </a>
@@ -16,40 +16,39 @@
     <div class="flex flex-col w-full rounded-[30px] border border-[#F1F2F6] p-4 gap-4 bg-white">
         <div class="flex gap-4">
             <div class="flex w-[120px] h-[132px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                <img src="assets/images/thumbnails/details-1.png" class="w-full h-full object-cover" alt="icon">
+                <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover" alt="icon">
             </div>
             <div class="flex flex-col gap-3 w-full">
-                <p class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">Tumbuh Tentram Berada
-                    Rumah Nenek</p>
+                <p class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">{{ $boardingHouse->name }}</p>
                 <hr class="border-[#F1F2F6]">
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">Singapore City</p>
+                    <p class="text-sm text-ngekos-grey">Kota {{ $boardingHouse->city->name }}</p>
                 </div>
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">In Housee</p>
+                    <p class="text-sm text-ngekos-grey">In {{ $boardingHouse->category->name }}</p>
                 </div>
             </div>
         </div>
         <hr class="border-[#F1F2F6]">
         <div class="flex gap-4">
             <div class="flex w-[120px] h-[156px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                <img src="assets/images/thumbnails/room-1.png" class="w-full h-full object-cover" alt="icon">
+                <img src="{{ asset('storage/' . $room->images->first()->image) }}" class="w-full h-full object-cover" alt="icon">
             </div>
             <div class="flex flex-col gap-3 w-full">
-                <p class="font-semibold text-lg leading-[27px]">Executive Room</p>
+                <p class="font-semibold text-lg leading-[27px]">{{ $room->name }}</p>
                 <hr class="border-[#F1F2F6]">
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">2 People</p>
+                    <p class="text-sm text-ngekos-grey">{{ $room->capacity }} People</p>
                 </div>
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/3dcube.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">184 sqft flat</p>
+                    <p class="text-sm text-ngekos-grey">{{ $room->square_feet }} sqft flat</p>
                 </div>
                 <hr class="border-[#F1F2F6]">
-                <p class="font-semibold text-lg text-ngekos-orange">Rp 793.444<span
+                <p class="font-semibold text-lg text-ngekos-orange">Rp{{ number_format($room->price_per_month, 0, ',', '.') }}<span
                         class="text-sm text-ngekos-grey font-normal">/bulan</span></p>
             </div>
         </div>
@@ -95,13 +94,13 @@
             <p class="font-semibold">Duration in Month</p>
             <div class="relative flex items-center gap-[10px] w-fit">
                 <button type="button" id="Minus" class="w-12 h-12 flex-shrink-0">
-                    <img src="assets/images/icons/minus.svg" alt="icon">
+                    <img src="{{ asset('assets/images/icons/minus.svg') }}" alt="icon">
                 </button>
                 <input id="Duration" type="text" value="1" name="duration"
                     class="appearance-none outline-none !bg-transparent w-[42px] text-center font-semibold text-[22px] leading-[33px]"
                     inputmode="numeric" pattern="[0-9]*">
                 <button type="button" id="Plus" class="w-12 h-12 flex-shrink-0">
-                    <img src="assets/images/icons/plus.svg" alt="icon">
+                    <img src="{{ asset('assets/images/icons/plus.svg') }}" alt="icon">
                 </button>
             </div>
         </div>
@@ -123,10 +122,16 @@
                     <span class="text-sm text-white">Grand Total</span>
                 </div>
                 <button type="submit"
-                    class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Book
-                    Now</button>
+                    class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Book Now</button>
             </div>
         </div>
     </div>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        const defaultPrice = {{ $room->price_per_month }};
+    </script>
+    <script src="{{ asset('assets/js/cust-info.js') }}"></script>
 @endsection

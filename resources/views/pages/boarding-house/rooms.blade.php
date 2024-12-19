@@ -4,7 +4,7 @@
     <div id="Background" class="absolute top-0 w-full h-[230px] rounded-b-[75px] bg-[linear-gradient(180deg,#F2F9E6_0%,#D2EDE4_100%)]">
         </div>
         <div id="TopNav" class="relative flex items-center justify-between px-5 mt-[60px]">
-        <a href="{{ route('home') }}"
+        <a href="{{ route('kos.show', $boardingHouse->slug) }}"
             class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
             <img src="{{ asset('assets/images/icons/arrow-left.svg') }}" class="w-[28px] h-[28px]" alt="icon">
         </a>
@@ -14,18 +14,18 @@
         <div id="Header" class="relative flex items-center justify-between gap-2 px-5 mt-[18px]">
         <div class="flex w-full rounded-[30px] border border-[#F1F2F6] p-4 gap-4 bg-white">
             <div class="flex w-[120px] h-[132px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                <img src="" class="w-full h-full object-cover" alt="icon">
+                <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover" alt="icon">
             </div>
             <div class="flex flex-col gap-3 w-full">
                 <h1 class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">Tumbuh Tentram Berada Rumah Nenek</h1>
                 <hr class="border-[#F1F2F6]">
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">Singapore City</p>
+                    <p class="text-sm text-ngekos-grey">Kota {{ $boardingHouse->city->name }}</p>
                 </div>
                 <div class="flex items-center gap-[6px]">
                     <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <p class="text-sm text-ngekos-grey">In Housee</p>
+                    <p class="text-sm text-ngekos-grey">In {{ $boardingHouse->category->name }}</p>
                 </div>
             </div>
         </div>
